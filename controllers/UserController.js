@@ -63,7 +63,7 @@ exports.signup_post = [
                 // if err, do something
                 // otherwise, store hashedPassword in DB
                 if (err) {
-                    return next(err);
+                    res.status(500).json({ msg: 'error' });
                 }
                 const user = new User({
                     Firstname: req.query.firstname,
@@ -74,9 +74,12 @@ exports.signup_post = [
                     isAdmin: false,
                 }).save((err, rest) => {
                     if (err) {
-                        return next(err);
+                        res.status(500).json({ msg: 'error' });
+                    } else {
+                        res.status(200).json({
+                            msg: 'user create successfully',
+                        });
                     }
-                    res.redirect('/');
                 });
             });
         }
@@ -88,11 +91,28 @@ exports.signin_get = (req, res, next) => {
     res.json('signin_get');
 };
 
+exports.signin_post = (req, res, next) => {
+    passport.authenticate('local', function (err, user, info) {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res.status(400).json({ msg: 'login failed' });
+        }
+        req.logIn(user, function (err) {
+            if (err) {
+                return next(err);
+            }
+            return res.status(200).json({ msg: 'login successfully' });
+        });
+    })(req, res, next);
+};
+/*
 exports.signin_post = passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/signin',
 });
-
+*/
 /*  upgrade user to admin */
 exports.upgrade_admin_put = [
     check('admin_password').custom((value, { reqest }) => {
@@ -106,16 +126,16 @@ exports.upgrade_admin_put = [
     async (req, res, next) => {
         const errors = validationResult(req);
         if (req.user == undefined) {
-            res.json('User is not logged in.');
+            res.status(401).json({ msg: 'unauthorized' });
         } else if (!errors.isEmpty()) {
-            res.json(errors);
+            res.status(500).json({ msg: 'error' });
         } else {
             const filter = { _id: req.user._id };
             const update = { isAdmin: true };
             await User.findOneAndUpdate(filter, update, {
                 returnOriginal: false,
             });
-            res.redirect('/');
+            res.status(200).json({ msg: 'upgrade to admin successfully' });
         }
     },
 ];

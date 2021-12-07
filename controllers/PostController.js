@@ -15,7 +15,7 @@ exports.index_get = (req, res, next) => {
 exports.posts_get = async (req, res, next) => {
     const posts = await Post.find({})
         .populate('User')
-        .populate('Comment')
+        .populate('Comments')
         .sort({ Timestamp: -1 });
     res.json(posts);
 };
@@ -33,34 +33,41 @@ exports.create_post_post = [
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            res.json(errors);
+            res.status(500).json({ msg: 'error' });
         } else {
-            const message = new Post({
+            if (req.user == undefined) {
+                res.status(401).json({ msg: 'unauthorized' });
+            }
+            const post = new Post({
                 Topic: req.query.topic,
                 Content: req.query.content,
                 Timestamp: new Date(),
                 User: req.user,
+                Comments: [],
             }).save((err, rest) => {
                 if (err) {
-                    return next(err);
+                    res.status(500).json({ msg: 'error' });
+                } else {
+                    res.status(200).json({ msg: 'post create successfully' });
                 }
-                res.redirect('/');
             });
         }
     },
 ];
 
-/* post delete */
-exports.delete_post_get = (req, res, next) => {
-    if (!req.user == undefined && req.user.isAdmin) {
+/* get delete */
+exports.post_delete = (req, res, next) => {
+    if (req.user == undefined) {
+        res.json('Please confirm you have permission.');
+    } else if (req.user.isAdmin) {
         Post.deleteOne({ _id: req.params.id })
             .then(function () {
-                res.redirect('/'); // Success
+                res.status(200).json({ msg: 'delete successfully' }); // Success
             })
             .catch(function (error) {
-                // Failure
+                res.status(500).json({ msg: 'error' });
             });
     } else {
-        res.json('Please confirm you have permission.');
+        res.status(401).json({ msg: 'unauthorized' });
     }
 };

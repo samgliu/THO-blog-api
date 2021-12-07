@@ -19,7 +19,7 @@ router.get('/logout', userController.logout_get);
 
 /* Post Routes */
 router.get('/create-post', postController.create_post_get);
-router.post('/create-post', postController.create_post_get);
-router.delete('/:id/delete', postController.delete_post_get);
+router.post('/create-post', postController.create_post_post);
+router.delete('/:id/delete', postController.post_delete);
 
 module.exports = router;

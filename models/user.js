@@ -37,5 +37,12 @@ var UserSchema = new Schema({
     },
 });
 
+// filter Password field
+UserSchema.methods.toJSON = function () {
+    var obj = this.toObject(); //or var obj = this;
+    delete obj.Password;
+    return obj;
+};
+
 //Export model
 module.exports = mongoose.model('User', UserSchema);
