@@ -64,6 +64,43 @@ exports.post_get = async (req, res, next) => {
     res.json(post);
 };
 
+/* update single post */
+exports.post_put = [
+    // Validate and sanitize the name field.
+    check('topic', 'Topic required').trim().isLength({ min: 1 }).escape(),
+    check('content', 'Content required').trim().isLength({ min: 1 }).escape(),
+
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(500).json({ msg: 'error' });
+        } else {
+            if (req.user == undefined) {
+                res.status(401).json({ msg: 'unauthorized' });
+            }
+            console.log(req.params.id);
+            Post.findOneAndUpdate(
+                { _id: req.params.id },
+                {
+                    $set: {
+                        Topic: req.query.topic,
+                        Content: req.query.content,
+                    },
+                },
+                (err, data) => {
+                    if (err) {
+                        //omit
+                    } else {
+                        res.status(200).json({
+                            msg: 'comment update successful', // Success
+                        });
+                    }
+                }
+            );
+        }
+    },
+];
+
 /* get delete */
 exports.post_delete = async (req, res, next) => {
     if (req.user == undefined) {

@@ -21,7 +21,8 @@ router.get('/logout', userController.logout_get);
 /* Post Routes */
 router.get('/create-post', postController.create_post_get);
 router.post('/create-post', postController.create_post_post);
-router.get('/:id/', postController.post_get);
+router.get('/:id', postController.post_get);
+router.put('/:id', postController.post_put);
 router.delete('/:id/delete', postController.post_delete);
 
 /* Comment Routes */
