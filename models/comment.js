@@ -19,7 +19,6 @@ var CommentSchema = new Schema({
         type: Date,
         required: true,
     },
-
     Post: {
         type: Schema.Types.ObjectId,
         ref: 'Post',

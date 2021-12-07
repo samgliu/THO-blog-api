@@ -55,13 +55,23 @@ exports.create_post_post = [
     },
 ];
 
+/* get single post */
+exports.post_get = async (req, res, next) => {
+    const post = await Post.findById(req.params.id)
+        .populate('User')
+        .populate('Comments')
+        .sort({ Timestamp: -1 });
+    res.json(post);
+};
+
 /* get delete */
-exports.post_delete = (req, res, next) => {
+exports.post_delete = async (req, res, next) => {
     if (req.user == undefined) {
         res.json('Please confirm you have permission.');
     } else if (req.user.isAdmin) {
-        Post.deleteOne({ _id: req.params.id })
+        await Post.deleteOne({ _id: req.params.id })
             .then(function () {
+                Comment.deleteMany({ Post: req.params.id }).exec();
                 res.status(200).json({ msg: 'delete successfully' }); // Success
             })
             .catch(function (error) {
