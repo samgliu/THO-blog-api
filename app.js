@@ -20,7 +20,7 @@ var app = express();
 //app.use(cors());
 
 const corsConfig = {
-    credentials: true,
+    //credentials: true,
     //origin: 'http://localhost:3000',
     origin: 'https://samgliu.github.io',
 };
