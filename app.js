@@ -55,6 +55,7 @@ app.use(
         secret: process.env.SESSION_KEY,
         resave: false,
         saveUninitialized: true,
+        domain: 'https://samgliu.github.io',
         cookie: {
             secure: true,
             httpOnly: false,
