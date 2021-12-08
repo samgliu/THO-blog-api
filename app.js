@@ -27,7 +27,7 @@ const corsConfig = {
         'https://samgliu.github.io',
     ],
     allowedHeaders: {
-        'Access-Control-Allow-Credentials': '*',
+        'Access-Control-Allow-Origin': '*',
     },
 };
 app.use(cors(corsConfig));
