@@ -39,7 +39,7 @@ post('/signup'); // user sign up with (firstname, lastname, email, username, pas
 
 post('/signin'); // user sign in with username: password
 
-put('/upgrade-admin'); // upgrade to admin with admin password: admin
+put('/upgrade-admin'); // upgrade to admin with admin password: admin; return user
 
 get('/logout'); // user log out
 
@@ -55,7 +55,8 @@ delete('/:id/delete'); // delete a post and its comments
 
 /_ Comment _/
 
-// create new comment with (name, content) field, no login required, :id is post id
+// create new comment with (name, content) field, no login required, :id is post id ;  
+// return the new post
 post('/:id/comment-create');
 
 // delete an comment, admin login required, :id is post id, :cid is comment id
