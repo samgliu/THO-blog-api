@@ -18,8 +18,10 @@ var apiRouter = require('./routes/api');
 
 var app = express();
 //app.use(cors());
+
 const corsConfig = {
     credentials: true,
+    origin: 'https://morning-dawn-19775.herokuapp.com/',
 };
 app.use(cors(corsConfig));
 
