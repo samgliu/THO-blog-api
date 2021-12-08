@@ -21,11 +21,7 @@ var app = express();
 
 const corsConfig = {
     credentials: true,
-    origin: [
-        'http://localhost:3001',
-        'http://localhost:3000',
-        'https://samgliu.github.io',
-    ],
+    origin: '*',
 };
 app.use(cors(corsConfig));
 
