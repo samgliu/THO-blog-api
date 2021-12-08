@@ -21,7 +21,7 @@ var app = express();
 
 const corsConfig = {
     credentials: true,
-    origin: 'https://morning-dawn-19775.herokuapp.com/',
+    origin: 'http://localhost:3000',
 };
 app.use(cors(corsConfig));
 
