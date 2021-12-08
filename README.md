@@ -29,6 +29,11 @@ RESTful
 
 # API Usage:
 
+const corsConfig = {
+...
+origin: 'http://localhost:3000', // must be set to the domain client side usage
+};
+
 /_ Index _/
 
 get('/'); // get index page same as below
