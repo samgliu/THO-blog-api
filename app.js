@@ -17,13 +17,12 @@ require('dotenv').config();
 var apiRouter = require('./routes/api');
 
 var app = express();
-app.use(cors());
-/*const corsConfig = {
+//app.use(cors());
+const corsConfig = {
     credentials: true,
-    origin: true,
 };
 app.use(cors(corsConfig));
-*/
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
