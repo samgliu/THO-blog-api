@@ -17,6 +17,7 @@ exports.posts_get = async (req, res, next) => {
         .populate('User')
         .populate('Comments')
         .sort({ Timestamp: -1 });
+
     res.json(posts);
 };
 

@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const User = require('./models/user');
+const cors = require('cors');
 
 const session = require('express-session');
 var compression = require('compression');
@@ -16,6 +17,7 @@ require('dotenv').config();
 var apiRouter = require('./routes/api');
 
 var app = express();
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
