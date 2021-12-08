@@ -107,8 +107,8 @@ exports.post_delete = async (req, res, next) => {
     if (req.user == undefined) {
         res.json('Please confirm you have permission.');
     } else if (req.user.isAdmin) {
-        await Post.deleteOne({ _id: req.params.id })
-            .then(function () {
+        const newPosts = await Post.deleteOne({ _id: req.params.id })
+            .then(function (err, results) {
                 Comment.deleteMany({ Post: req.params.id }).exec();
                 res.status(200).json({ msg: 'delete successfully' }); // Success
             })

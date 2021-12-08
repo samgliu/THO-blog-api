@@ -103,7 +103,7 @@ exports.signin_post = (req, res, next) => {
             if (err) {
                 return next(err);
             }
-            return res.status(200).json({ msg: 'login successfully' });
+            return res.status(200).json(user);
         });
     })(req, res, next);
 };
@@ -132,15 +132,18 @@ exports.upgrade_admin_put = [
         } else {
             const filter = { _id: req.user._id };
             const update = { isAdmin: true };
-            await User.findOneAndUpdate(filter, update, {
+            const newUser = await User.findOneAndUpdate(filter, update, {
                 returnOriginal: false,
             });
-            res.status(200).json({ msg: 'upgrade to admin successfully' });
+            res.status(200).json(newUser);
         }
     },
 ];
 
 exports.logout_get = (req, res) => {
-    req.logout();
-    res.redirect('/');
+    req.logOut();
+    res.status(200).clearCookie('connect.sid');
+    req.session.destroy((err) => {
+        res.clearCookie('connect.sid').send('cleared cookie');
+    });
 };

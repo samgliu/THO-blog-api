@@ -35,9 +35,7 @@ exports.create_comment_post = [
                                     msg: 'error',
                                 });
                             } else {
-                                res.status(200).json({
-                                    msg: 'comment create successful',
-                                });
+                                res.status(200).json(rest);
                             }
                         }
                     );
