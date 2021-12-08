@@ -26,9 +26,6 @@ const corsConfig = {
         'http://localhost:3000',
         'https://samgliu.github.io',
     ],
-    allowedHeaders: {
-        'Access-Control-Allow-Origin': '*',
-    },
 };
 app.use(cors(corsConfig));
 
