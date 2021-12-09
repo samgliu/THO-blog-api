@@ -36,6 +36,10 @@ const corsConfig = {
     ],
 };
 app.use(cors(corsConfig));*/
+app.use(function secure(req, res, next) {
+    req.headers['x-forwarded-proto'] = 'https';
+    next();
+});
 app.use(function (req, res, next) {
     var allowedDomains = [
         'http://localhost:3001',
@@ -57,10 +61,7 @@ app.use(function (req, res, next) {
 
     next();
 });
-app.use(function secure(req, res, next) {
-    req.headers['x-forwarded-proto'] = 'https';
-    next();
-});
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
