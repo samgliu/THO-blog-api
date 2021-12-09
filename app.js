@@ -41,6 +41,8 @@ app.use(function (req, res, next) {
         'http://localhost:3001',
         'http://localhost:8080',
         'http://127.0.0.1:3001',
+        'https://samgliu.github.io',
+        'http://samgliu.github.io',
     ];
     var origin = req.headers.origin;
     if (allowedDomains.indexOf(origin) > -1) {
