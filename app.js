@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const User = require('./models/user');
-const cors = require('cors');
+//const cors = require('cors');
 
 const session = require('express-session');
 var compression = require('compression');
@@ -36,10 +36,12 @@ const corsConfig = {
     ],
 };
 app.use(cors(corsConfig));*/
+// trick backend it's https and send the cookie in samesite=none mode
 app.use(function secure(req, res, next) {
     req.headers['x-forwarded-proto'] = 'https';
     next();
 });
+// white list domains
 app.use(function (req, res, next) {
     var allowedDomains = [
         'http://localhost:3001',

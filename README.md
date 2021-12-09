@@ -2,7 +2,7 @@
 
 # Description
 
-A blog API server side build for TOP project.
+A blog API server side build for TOP project using NODE.JS and Express with cookie based CORS practice.
 
 Server repository:https://github.com/samgliu/THO-blog-api  
 Server API Demo:https://morning-dawn-19775.herokuapp.com/
@@ -15,7 +15,6 @@ Client Demo:https://samgliu.github.io/THO-blog-api-client/
 -   Node.js
 -   Express
 -   passportJS
--   ejs
 
 # Feature:
 
@@ -24,15 +23,15 @@ Log in/out
 Auth  
 Post  
 Comment  
-Server/Client/CMS
+Server/Client
 RESTful
 
-# API Usage:
+# config
 
-const corsConfig = {
-...
-origin: 'http://localhost:3000', // must be set to the domain client side usage
-};
+-   App.js  
+    allowedDomains: must match the client side domain.
+
+# API Usage:
 
 /_ Index _/
 
