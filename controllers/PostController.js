@@ -28,8 +28,8 @@ exports.create_post_get = function (req, res, next) {
 
 exports.create_post_post = [
     // Validate and sanitize the name field.
-    check('topic', 'Topic required').trim().isLength({ min: 1 }).escape(),
-    check('content', 'Content required').trim().isLength({ min: 1 }).escape(),
+    body('topic', 'Topic required').trim().isLength({ min: 1 }).escape(),
+    body('content', 'Content required').isLength({ min: 1 }).escape(),
 
     (req, res, next) => {
         const errors = validationResult(req);
@@ -37,11 +37,12 @@ exports.create_post_post = [
             res.status(500).json({ msg: 'error' });
         } else {
             if (req.user == undefined) {
-                res.status(401).json({ msg: 'unauthorized' });
+                console.log('unauthorized');
+                //res.status(401).json({ msg: 'unauthorized' });
             }
             const post = new Post({
-                Topic: req.query.topic,
-                Content: req.query.content,
+                Topic: req.body.topic,
+                Content: req.body.content,
                 Timestamp: new Date(),
                 User: req.user,
                 Comments: [],
@@ -68,8 +69,8 @@ exports.post_get = async (req, res, next) => {
 /* update single post */
 exports.post_put = [
     // Validate and sanitize the name field.
-    check('topic', 'Topic required').trim().isLength({ min: 1 }).escape(),
-    check('content', 'Content required').trim().isLength({ min: 1 }).escape(),
+    body('topic', 'Topic required').trim().isLength({ min: 1 }).escape(),
+    body('content', 'Content required').isLength({ min: 1 }).escape(),
 
     (req, res, next) => {
         const errors = validationResult(req);
@@ -77,24 +78,22 @@ exports.post_put = [
             res.status(500).json({ msg: 'error' });
         } else {
             if (req.user == undefined) {
-                res.status(401).json({ msg: 'unauthorized' });
+                // res.status(401).json({ msg: 'unauthorized' });
             }
-            console.log(req.params.id);
+
             Post.findOneAndUpdate(
                 { _id: req.params.id },
                 {
                     $set: {
-                        Topic: req.query.topic,
-                        Content: req.query.content,
+                        Topic: req.body.topic,
+                        Content: req.body.content,
                     },
                 },
                 (err, data) => {
                     if (err) {
                         //omit
                     } else {
-                        res.status(200).json({
-                            msg: 'comment update successful', // Success
-                        });
+                        res.status(200).json(data); // suceed
                     }
                 }
             );

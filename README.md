@@ -57,17 +57,18 @@ get('/logout'); // user log out
 
 /_ Post _/
 
-post('/create-post'); // create new post with(topic, content) field
+post('/create-post'); // create new post with(topic, content) field using request body
 
 get('/:id'); // get a single post with all field including array of comments; :id is post id
 
-put('/:id'); // edit a post with new (topic, content) field; :id is post id
+put('/:id'); // edit a post with new (topic, content) field; :id is post id using request body
 
 delete('/:id/delete'); // delete a post and its comments
 
 /_ Comment _/
 
-// create new comment with (name, content) field, no login required, :id is post id ;  
+// create new comment with (name, content) using request params , no login required, :id is  
+// post id ;  
 // return the new post
 post('/:id/comment-create');
 
