@@ -33,6 +33,11 @@ RESTful
 
 # API Usage:
 
+Offer User system to give CMS-like management.  
+Anyone can regester/login/comment.  
+Only user with admin permission gives user post/delete authorization.  
+Default admin pass: admin
+
 /_ Index _/
 
 get('/'); // get index page same as below
