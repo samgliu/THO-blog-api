@@ -22,7 +22,8 @@ Create User
 Log in/out  
 Auth  
 Post  
-Comment  
+Comment
+Edit  
 Server/Client
 RESTful
 
@@ -35,7 +36,7 @@ RESTful
 
 Offer User system to give CMS-like management.  
 Anyone can register/login/comment.  
-Only user with admin permission can post/delete authorization.  
+Only user with admin permission can post/delete.  
 Admin password in DEMO: admin // setting in .env
 
 /_ Index _/
