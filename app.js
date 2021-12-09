@@ -19,21 +19,46 @@ var apiRouter = require('./routes/api');
 var app = express();
 //app.use(cors());
 
-const corsConfig = {
-    credentials: true,
-    origin: [
-        'http://localhost:3001',
-        'http://localhost:3000',
-        'https://samgliu.github.io',
-    ],
-};
-app.use(cors(corsConfig));
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(compression()); //Compress all routes
+// cors
+/*
+const corsConfig = {
+    credentials: true,
+    origin: [
+        'http://localhost:3001',
+        'http://localhost:3000',
+        'http://127.0.0.1:3001',
+        'https://samgliu.github.io',
+    ],
+};
+app.use(cors(corsConfig));*/
+app.use(function (req, res, next) {
+    var allowedDomains = [
+        'http://localhost:3001',
+        'http://localhost:8080',
+        'http://127.0.0.1:3001',
+    ];
+    var origin = req.headers.origin;
+    if (allowedDomains.indexOf(origin) > -1) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+    res.setHeader(
+        'Access-Control-Allow-Methods',
+        'GET, POST, OPTIONS, PUT, PATCH, DELETE'
+    );
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    next();
+});
+app.use(function secure(req, res, next) {
+    req.headers['x-forwarded-proto'] = 'https';
+    next();
+});
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -50,11 +75,17 @@ mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDb connection error:'));
 
+app.set('trust proxy', 1); // trusting proxy
 app.use(
     session({
         secret: process.env.SESSION_KEY,
         resave: false,
         saveUninitialized: true,
+        cookie: {
+            secure: true,
+            sameSite: 'none',
+            httpOnly: true,
+        },
     })
 );
 app.use(passport.initialize());
