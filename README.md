@@ -34,9 +34,9 @@ RESTful
 # API Usage:
 
 Offer User system to give CMS-like management.  
-Anyone can regester/login/comment.  
-Only user with admin permission gives user post/delete authorization.  
-Default admin pass: admin
+Anyone can register/login/comment.  
+Only user with admin permission can post/delete authorization.  
+Admin password in DEMO: admin // setting in .env
 
 /_ Index _/
 
