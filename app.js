@@ -45,6 +45,7 @@ app.use(function secure(req, res, next) {
 app.use(function (req, res, next) {
     var allowedDomains = [
         'http://localhost:3001',
+        'http://localhost:3000',
         'http://localhost:8080',
         'http://127.0.0.1:3001',
         'https://samgliu.github.io',

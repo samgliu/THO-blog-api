@@ -1,8 +1,15 @@
-# Blog API server
+# Blog API Server-side
 
 # Description
 
-A blog API server side build for TOP project using NODE.JS and Express with cookie based CORS practice.
+[<img alt="" width="400px" src="public/example.png" />](https://samgliu.github.io/THO-blog-api-client/)
+
+         It is a blog API server-side build for The Odin Project
+         using NODE.JS and Express with cookie and CORS practice.
+
+[<h2>Live Demo</h2>](https://samgliu.github.io/THO-blog-api-client/)
+
+# Repositories
 
 Server repository:https://github.com/samgliu/THO-blog-api  
 Server API Demo:https://morning-dawn-19775.herokuapp.com/
@@ -30,47 +37,4 @@ RESTful
 # config
 
 -   App.js  
-    allowedDomains: must match the client side domain.
-
-# API Usage:
-
-Offer User system to give CMS-like management.  
-Anyone can register/login/comment.  
-Only user with admin permission can post/delete.  
-Admin password in DEMO: admin // setting in .env
-
-/_ Index _/
-
-get('/'); // get index page same as below
-
-get('/posts'); // GET posts home page.
-
-/_ User _/
-
-post('/signup'); // user sign up with (firstname, lastname, email, username, password, confirm) field
-
-post('/signin'); // user sign in with username: password
-
-put('/upgrade-admin'); // upgrade to admin with admin password: admin; return user
-
-get('/logout'); // user log out
-
-/_ Post _/
-
-post('/create-post'); // create new post with(topic, content) field using request body
-
-get('/:id'); // get a single post with all field including array of comments; :id is post id
-
-put('/:id'); // edit a post with new (topic, content) field; :id is post id using request body
-
-delete('/:id/delete'); // delete a post and its comments
-
-/_ Comment _/
-
-// create new comment with (name, content) using request params , no login required, :id is  
-// post id ;  
-// return the new post
-post('/:id/comment-create');
-
-// delete an comment, admin login required, :id is post id, :cid is comment id
-delete('/:id/comment/:cid/delete');
+     allowedDomains: must match the client side domain to avoid CORS errors.
