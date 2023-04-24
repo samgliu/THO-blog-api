@@ -12,7 +12,7 @@
 # Repositories
 
 Server repository:https://github.com/samgliu/THO-blog-api  
-Server API Demo:https://morning-dawn-19775.herokuapp.com/
+Server API Demo:https://top-blog-api.onrender.com
 
 Client repository:https://github.com/samgliu/THO-blog-api-client  
 Client Demo:https://samgliu.github.io/THO-blog-api-client/
